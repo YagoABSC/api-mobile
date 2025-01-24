@@ -21,12 +21,14 @@ class UserController{
 
         database.select("*").where({email: email}).table("users").then(async usuario => {
 
-            if(!usuario)
+            if(!usuario[0])
                 res.status(401).json({message: "Autenticação falhou! "})
             
+            
             const validarSenha = await bcrypt.compare(senha, usuario[0].senha)
-            if(!senha)
+            if(!validarSenha)
                 res.status(401).json({message: "Autenticação falhou! "})
+            
 
             const token = jwt.sign({id: usuario[0].id}, 'Titos@2025!', {
                 expiresIn: '1h'
