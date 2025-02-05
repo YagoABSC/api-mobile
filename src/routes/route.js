@@ -3,14 +3,20 @@ const express = require('express');
 const router  = express.Router();
 const TaskController = require('../controllers/TaskController')
 const UserController = require('../controllers/UserController')
-const verificarToken = require('../middleware/authMiddleware')
+const verificarToken = require('../middleware/authMiddleware');
+const TwoFaController = require('../controllers/TwoFaController');
 
 // Rotas de usuários
-router.post('/usuario/criar', UserController.cadastrarUsuario)
-router.post('/usuario/autenticar', UserController.autenticarUsuario)
-router.get('/users', (req, res) => {
-    res.send('Lista de usuários');
-})
+router.post('/usuario/criar', UserController.cadastrarUsuario);
+router.post('/usuario/autenticar', UserController.autenticarUsuario);
+router.get('/usuarios', verificarToken, UserController.listarUsuarios);
+router.get('/usuario/:id', verificarToken, UserController.listarUmUsuario);
+router.put('/usuario/atualizar/:id', verificarToken, UserController.atualizarUsuario);
+router.delete('/usuario/execluir/:id', verificarToken, UserController.removerUsuario);
+
+//Rotas de validação
+router.get('/2fa/gerar', TwoFaController.gerarToken);
+router.post('/2fa/validar', TwoFaController.validarToken)
 
 // Rotas de tarefas
 router.post('/novaTarefa', TaskController.novaTarefa)
