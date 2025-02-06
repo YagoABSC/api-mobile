@@ -12,7 +12,8 @@ router.post('/usuario/autenticar', UserController.autenticarUsuario);
 router.get('/usuarios', verificarToken, UserController.listarUsuarios);
 router.get('/usuario/:id', verificarToken, UserController.listarUmUsuario);
 router.put('/usuario/atualizar/:id', verificarToken, UserController.atualizarUsuario);
-router.delete('/usuario/execluir/:id', verificarToken, UserController.removerUsuario);
+router.delete('/usuario/excluir/:id', verificarToken, UserController.removerUsuario);
+router.put('/usuario/redefinirSenha/:id', UserController.redefinirSenha);
 
 //Rotas de validação
 router.get('/2fa/gerar', TwoFaController.gerarToken);

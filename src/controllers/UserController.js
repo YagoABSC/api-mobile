@@ -1,6 +1,7 @@
 const database = require('../database/connect');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 class UserController {
 
@@ -30,7 +31,7 @@ class UserController {
                 res.status(401).json({ message: "Autenticação falhou! " })
 
 
-            const token = jwt.sign({ id: usuario[0].id }, 'Titos@2025!', {
+            const token = jwt.sign({ id: usuario[0].id }, `${process.env.SALT}`, {
                 expiresIn: '1h'
             })
 
@@ -79,6 +80,19 @@ class UserController {
         database.where({ id: id }).del().table('users').then(usuario => {
             res.status(200).json({ message: "Usuário deletado com sucesso!" })
         }).catch(error => {
+            console.log(error)
+        })
+    }
+
+    async redefinirSenha(req, res) {
+        const { id } = req.params
+        const { senha } = req.body
+
+        const senhaSegura = await bcrypt.hash(senha, 10)
+
+        database.where({ id: id }).update({ senha: senhaSegura}).table('users').then(usuario => {
+            res.json({message: "Senha atualizada com sucesso!"})
+        }).catch(error =>{
             console.log(error)
         })
     }
