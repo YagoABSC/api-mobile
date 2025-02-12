@@ -9,7 +9,7 @@ class TwoFaController{
     gerarToken(req, res){
         const secret = speakeasy.generateSecret();
         qrcode.toDataURL(secret.otpauth_url, (err, data_url) =>{
-            res.json({token: secret.base32, qrcode: data_url})
+            res.status(200).json({token: secret.base32, qrcode: data_url})
         })
 
     }
@@ -24,7 +24,7 @@ class TwoFaController{
             window: 2 //Aceita tokens do periodo anterior e do próximo também
         });
 
-        res.json({ verified })
+        res.status(200).json({ verified })
     }
 
 }

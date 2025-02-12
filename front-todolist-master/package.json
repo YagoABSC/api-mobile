@@ -1,0 +1,40 @@
+{
+  "name": "front-todolist",
+  "version": "1.0.0",
+  "description": "Front To Do List'",
+  "main": "index.js",
+  "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "author": "Leonardo Mendes",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1",
+    "bootstrap": "^5.1.3",
+    "dotenv": "^16.0.0",
+    "gh-pages": "^3.2.3",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "5.0.0",
+    "react-transition-group": "^4.4.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "json-loader": "^0.5.7"
+  }
+}
